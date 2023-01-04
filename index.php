@@ -13,7 +13,7 @@
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
@@ -42,6 +42,24 @@
                         <a href="" class="nav-item nav-link">Test Kitapları</a>
                         <a href="" class="nav-item nav-link">Öykü</a>
                         <a href="" class="nav-item nav-link">Kişisel Gelişim</a>
+
+                        <?php
+        $json_string = 'https://api.genelpara.com/embed/doviz.json';
+        $jsondata = file_get_contents($json_string);
+        $obj = json_decode($jsondata, true);
+        echo"Dolar / TL : ";
+        print_r($obj["USD"]["satis"]);
+        echo"<br>";
+        echo"Euro / TL : ";
+        print_r($obj["EUR"]["satis"]);
+        echo"<br>";
+        echo"ETH / TL : ";
+        print_r($obj["ETH"]["satis"]);
+
+        ?>
+
+
+
                     </div>
                 </nav>
             </div>
@@ -70,13 +88,13 @@
                         <div class="carousel-item active" style="height: 410px;">
                             <img class="img-fluid" src="https://cdn.bkmkitap.com/Data/EditorFiles/interactive/YIL-SONU-FIRSAT-AYI-KAMPANYASI-BANNER.jpg" alt="Image">
                             <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                                
+
                             </div>
                         </div>
                         <div class="carousel-item" style="height: 410px;">
                             <img class="img-fluid" src="https://cdn.bkmkitap.com/Data/EditorFiles/interactive/TYT-AYT-COK-SATAN-DENEME-KITAPLARI-KAMPANYASI-BANNER.jpg" alt="Image">
                             <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                                
+
                             </div>
                         </div>
                     </div>
@@ -131,118 +149,101 @@
 
     <!-- Categories Start -->
     <div class="container-fluid pt-5">
-        <div class="row px-xl-5 pb-3">
-            <div class="col-lg-4 col-md-6 pb-1">
-                <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
-                    <p class="text-right">15 Products</p>
-                    <a href="" class="cat-img position-relative overflow-hidden mb-3">
-                        <img class="img-fluid" src="https://cdn.bkmkitap.com/roman-13064435-79-O.jpg" alt="">
-                    </a>
-                    <h5 class="font-weight-semi-bold m-0">Roman</h5>
+    <div class="row px-xl-5 pb-7">
+    <div class="col-lg-4 col-md-6 pb-1">
+        <?php
+
+        $conn = new PDO("mysql:host=localhost; dbname=book-store;charset=utf8", "root", "");
+
+
+
+        $veri = $conn
+            ->query("SELECT * FROM index_kitaplar")
+            ->fetchAll();
+
+        foreach ($veri as $key => $value) {
+
+        ?>
+
+
+
+           
+                
+                    <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
+                        <!-- ürün adedi -->
+                        <p class="text-right"><?php echo $value['urun_adet'] ?> Adet</p>
+                        <a href="" class="cat-img position-relative overflow-hidden mb-3">
+                            <!-- ürün görseli -->
+                            <img src="assets/img/<?php echo DIRECTORY_SEPARATOR . $value['gorsel'] ?>" class="img-fluid" alt="">
+                        </a>
+                        <!-- ürün basligi -->
+                        <h5 class="font-weight-semi-bold m-0"><?php echo $value['urun_ismi'] ?></h5>
+                    </div>
                 </div>
-            </div>
-            <div class="col-lg-4 col-md-6 pb-1">
-                <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
-                    <p class="text-right">15 Products</p>
-                    <a href="" class="cat-img position-relative overflow-hidden mb-3">
-                        <img class="img-fluid" src="https://cdn.bkmkitap.com/pasakli-ve-lanetli-tatil-11603586-98-O.jpg" alt="">
-                    </a>
-                    <h5 class="font-weight-semi-bold m-0">Hikaye</h5>
+           
+           
+<?php
+        }
+?>
+ </div>  
+ </div>
+
+
+<!-- Categories End -->
+
+
+
+
+<!-- Footer Start -->
+<div class="container-fluid bg-secondary text-dark mt-5 pt-5">
+    <div class="row px-xl-5 pt-5">
+        <div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5">
+            <a href="" class="text-decoration-none">
+                <h1 class="mb-4 display-5 font-weight-semi-bold"><span class="text-primary font-weight-bold border border-white px-3 mr-1">E</span>Shopper</h1>
+            </a>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Qui nisi suscipit necessitatibus voluptatum dignissimos expedita nam quae obcaecati laudantium delectus?</p>
+            <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>Gazi Caddesi, Nilüfer/BURSA</p>
+            <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>info@kkm.com</p>
+            <p class="mb-0"><i class="fa fa-phone-alt text-primary mr-3"></i>+90 512 345 67 89</p>
+        </div>
+        <div class="col-lg-8 col-md-12">
+            <div class="row">
+                <div class="col-md-4 mb-5">
+                    <h5 class="font-weight-bold text-dark mb-4">Linkler</h5>
+                    <div class="d-flex flex-column justify-content-start">
+                        <a href="index.php" class="nav-item nav-link active">Anasayfa</a>
+                        <a href="shop.php" class="nav-item nav-link">Tümünü Gör</a>
+                        <a href="detail.php" class="nav-item nav-link">Market Detayları</a>
+                        <a href="contact.php" class="nav-item nav-link">İletişim</a>
+                    </div>
                 </div>
-            </div>
-            <div class="col-lg-4 col-md-6 pb-1">
-                <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
-                    <p class="text-right">15 Products</p>
-                    <a href="" class="cat-img position-relative overflow-hidden mb-3">
-                        <img class="img-fluid" src="https://cdn.bkmkitap.com/bilincaltinin-gizli-sifreleri-11713614-74-O.jpg" alt="">
-                    </a>
-                    <h5 class="font-weight-semi-bold m-0">Kişisel Gelişim</h5>
+                <div class="col-md-4 mb-5">
+
                 </div>
-            </div>
-            <div class="col-lg-4 col-md-6 pb-1">
-                <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
-                    <p class="text-right">15 Products</p>
-                    <a href="" class="cat-img position-relative overflow-hidden mb-3">
-                        <img class="img-fluid" src="https://cdn.bkmkitap.com/senli-siirler-11628766-14-O.jpg" alt="">
-                    </a>
-                    <h5 class="font-weight-semi-bold m-0">Şiir</h5>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 pb-1">
-                <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
-                    <p class="text-right">15 Products</p>
-                    <a href="" class="cat-img position-relative overflow-hidden mb-3">
-                        <img class="img-fluid" src="https://cdn.bkmkitap.com/gorulmeyen-hikayeler-3944568-44-O.jpg" alt="">
-                    </a>
-                    <h5 class="font-weight-semi-bold m-0">Öykü</h5>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 pb-1">
-                <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
-                    <p class="text-right">15 Products</p>
-                    <a href="" class="cat-img position-relative overflow-hidden mb-3">
-                        <img class="img-fluid" src="https://cdn.bkmkitap.com/2023-tyt-3d-simulasyon-matematik-denemeleri-13062419-78-O.jpg" alt="">
-                    </a>
-                    <h5 class="font-weight-semi-bold m-0">Test Kitapları</h5>
-                </div>
+
             </div>
         </div>
     </div>
-    <!-- Categories End -->
+</div>
+<!-- Footer End -->
 
 
+<!-- Back to Top -->
+<a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
 
 
-    <!-- Footer Start -->
-    <div class="container-fluid bg-secondary text-dark mt-5 pt-5">
-        <div class="row px-xl-5 pt-5">
-            <div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5">
-                <a href="" class="text-decoration-none">
-                    <h1 class="mb-4 display-5 font-weight-semi-bold"><span class="text-primary font-weight-bold border border-white px-3 mr-1">E</span>Shopper</h1>
-                </a>
-                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Qui nisi suscipit necessitatibus voluptatum dignissimos expedita nam quae obcaecati laudantium delectus?</p>
-                <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>Gazi Caddesi, Nilüfer/BURSA</p>
-                <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>info@kkm.com</p>
-                <p class="mb-0"><i class="fa fa-phone-alt text-primary mr-3"></i>+90 512 345 67 89</p>
-            </div>
-            <div class="col-lg-8 col-md-12">
-                <div class="row">
-                    <div class="col-md-4 mb-5">
-                        <h5 class="font-weight-bold text-dark mb-4">Linkler</h5>
-                        <div class="d-flex flex-column justify-content-start">
-                            <a href="index.php" class="nav-item nav-link active">Anasayfa</a>
-                            <a href="shop.php" class="nav-item nav-link">Tümünü Gör</a>
-                            <a href="detail.php" class="nav-item nav-link">Market Detayları</a>
-                            <a href="contact.php" class="nav-item nav-link">İletişim</a>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-5">
-                        
-                    </div>
-                    
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Footer End -->
+<!-- JavaScript Libraries -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+<script src="lib/easing/easing.min.js"></script>
+<script src="lib/owlcarousel/owl.carousel.min.js"></script>
 
+<!-- Contact Javascript File -->
+<script src="mail/jqBootstrapValidation.min.js"></script>
+<script src="mail/contact.js"></script>
 
-    <!-- Back to Top -->
-    <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
-
-
-    <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-
-    <!-- Contact Javascript File -->
-    <script src="mail/jqBootstrapValidation.min.js"></script>
-    <script src="mail/contact.js"></script>
-
-    <!-- Template Javascript -->
-    <script src="js/main.js"></script>
+<!-- Template Javascript -->
+<script src="js/main.js"></script>
 </body>
 
 </html>
@@ -250,6 +251,6 @@
 
 <?php
 
-include("baglanti.php");
+
 
 ?>
